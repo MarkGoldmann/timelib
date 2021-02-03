@@ -6,6 +6,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int exists_date(int day, int month, int year);
+int day_of_the_year(int day, int month, int year);
+int is_leapyear(int year);
+int get_days_for_month(int month, int year);
 
 int main()
 {
@@ -37,44 +41,30 @@ int main()
 
 
 
-
+ return 0;
 
 }
 
-int day_of_the_year(int day, int month, int year, int Number_of_day)
+int day_of_the_year(int day, int month, int year)
 {
     int schaltjahr = 0;
     int ret = 0;
-    int tage_pro_monat[] = {31,28,31,30,31,30,31,31,30,31,30,31};
 
-    schaltjahr = is_leapyear(year);
+    if(exists_date(day, month, year)== 0)
+    {
+       return -1;
+    }
+
     ret += day;
 
 
-    for (int i = 0; i < month -1; i++)
+    for (int i = 1; i < month ; i++)
     {
-        ret += tage_pro_monat[i];
-    }
-
-    if(schaltjahr == 1 && month >= 3)
-    {
-        ret += schaltjahr;
-    }
-    else
-    {
-        if(schaltjahr == -1)
-        {
-            printf("ungueltiges Jahr");
-        }
+        ret += get_days_for_month(i, year); // get_per_month
     }
 
 
-    if(day > tage_pro_monat[month - 1])
-    {
-        printf("ungueltiger Tag.\n");
-        return 0;
-    }
-    Number_of_day = ret;
+    int Number_of_day = ret;
 
     return Number_of_day;
 }
@@ -118,16 +108,24 @@ int is_leapyear(int year)
 int get_days_for_month(int month, int year)
 {
   int anzahl_von_tagen = 0;
+  int schaltjahr = 0;
 
-  int schaltjahr = is_leapyear(year);
+  schaltjahr = is_leapyear(year);
   int tage_pro_monat[] = {31,28,31,30,31,30,31,31,30,31,30,31};
 
   if(schaltjahr == 1)
   {
       tage_pro_monat[1] = 29;
   }
+  else
+  {
+      if(schaltjahr == -1)
+        {
+            printf("ungueltiges Jahr");
+        }
+  }
 
-  anzahl_von_tagen += tage_pro_monat[month];
+  anzahl_von_tagen += tage_pro_monat[month-1];
 
   return anzahl_von_tagen;
 
@@ -138,10 +136,15 @@ int exists_date(int day, int month, int year)
 
   if(year > 1581 && year < 2401)
   {
-      return 1;
+      if(month >= 1 && month <= 12)
+     {
+         if(day >= 1 && day <= get_days_for_month(month, year))
+         {
+             return 1;
+         }
+     }
   }
-  else
-  {
-      return 0;
+  return 0;
+
   }
-}
+
