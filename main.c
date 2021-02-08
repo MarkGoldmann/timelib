@@ -20,9 +20,16 @@ int year = 0;
 
 
         input_date(&day,&month,&year);
-        int tag_des_jahres = day_of_the_year(day, month, year);
 
+        if(exists_date(day, month, year) == 0)
+    {
+        printf("Datum ist ungueltig.\n");
+    }
+    else
+    {
+        int tag_des_jahres = day_of_the_year(day, month, year);
         printf("Heute ist der %i Tag des Jahres.", tag_des_jahres);
+    }
 
 
 return 0;
@@ -39,8 +46,6 @@ int input_date(int *dayz1,int *monthz2,int *yearz3)
 
     printf("Geben Sie den Tag ein:");
     scanf("%i",dayz1);
-
-
 
 
 }
