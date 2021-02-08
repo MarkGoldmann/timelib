@@ -11,37 +11,37 @@ int day_of_the_year(int day, int month, int year);
 int is_leapyear(int year);
 int get_days_for_month(int month, int year);
 
+
 int main()
 {
-    int month = 0;
-    int year= 0;
-    int day = 0;
+int day = 0;
+int month = 0;
+int year = 0;
 
 
-    printf("Geben Sie das Jahr ein:");
-    scanf("%i",&year);
-
-    printf("Geben Sie den Monat ein:");
-    scanf("%i",&month);
-
-    printf("Geben Sie den Tag ein:");
-    scanf("%i",&day);
-
-    if (exists_date(day, month, year) == 0)
-    {
-        printf("Datum ist ungueltig.\n");
-    }
-    else
-    {
+        input_date(&day,&month,&year);
         int tag_des_jahres = day_of_the_year(day, month, year);
 
         printf("Heute ist der %i Tag des Jahres.", tag_des_jahres);
 
-    }
+
+return 0;
+
+}
+
+int input_date(int *dayz1,int *monthz2,int *yearz3)
+{
+    printf("Geben Sie das Jahr ein:");
+    scanf("%i",yearz3);
+
+    printf("Geben Sie den Monat ein:");
+    scanf("%i",monthz2);
+
+    printf("Geben Sie den Tag ein:");
+    scanf("%i",dayz1);
 
 
 
- return 0;
 
 }
 
@@ -104,7 +104,7 @@ int is_leapyear(int year)
         }
     }
 }
-//MUss noch überarbeitet werden
+
 int get_days_for_month(int month, int year)
 {
   int anzahl_von_tagen = 0;
