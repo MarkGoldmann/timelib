@@ -1,36 +1,49 @@
+//Autor: Mark Goldmann
+//Erstelldatum: 27.03.2021
+//Text: Funktionsbibiothek
+
+
+#include "bibiothek.h"
+
+
 //Funktion für die Eingabe der Daten
-int input_date(int *dayz1,int *monthz2,int *yearz3)
+struct date input_date()
 {
-    printf("Geben Sie das Jahr ein:");
-    scanf("%i",yearz3);
+    struct date x;
 
-    printf("Geben Sie den Monat ein:");
-    scanf("%i",monthz2);
+    printf("Enter the year:");
+    scanf("%i",&x.year);
 
-    printf("Geben Sie den Tag ein:");
-    scanf("%i",dayz1);
+    printf("Enter the month:");
+    scanf("%i",&x.month);
+
+    printf("Enter the day:");
+    scanf("%i",&x.day);
+
+    return x;
 
 }
 
 //Funktion zur Berechnung des Tag des Jahres und
 // ob das Angegebene Daten existiert
-int day_of_the_year(int day, int month, int year)
+int day_of_the_year(struct date x)
 {
-    int schaltjahr = 0;
+    int leapyear = 0;
     int ret = 0;
 
     //Wenn Das Datum nicht existiert wird -1 zurückgegeben
-    if(exists_date(day, month, year)== 0)
+    if(exists_date(x)== 0)
     {
         return -1;
     }
 
-    ret += day;
+    ret += x.day;
 
 
-    for (int i = 1; i < month ; i++)
+    for (int i = 1; i < x.month ; i++)
     {
-        ret += get_days_for_month(i, year); // get_per_month
+        //Die Tage der Monate werden dazu addiert in eine Variable
+        ret += get_days_for_month(i, x.year);
     }
 
 
@@ -51,7 +64,7 @@ int is_leapyear(int year)
             }
         }
         //Hier wird 1 zurückgegeben und in der Funktion
-        //day_of_the_year gegebenenfalls dazuaddiert
+        //day_of_the_year gegebenenfalls dazu addiert
         return 1;
     }
     else
@@ -84,40 +97,40 @@ int is_leapyear(int year)
 //jeweiligen Monats
 int get_days_for_month(int month, int year)
 {
-    int anzahl_von_tagen = 0;
-    int schaltjahr = 0;
+    int amount_of_days = 0;
+    int leapyear = 0;
 
-    schaltjahr = is_leapyear(year);
-    int tage_pro_monat[] = {31,28,31,30,31,30,31,31,30,31,30,31};
+    leapyear = is_leapyear(year);
+    int days_a_month[] = {31,28,31,30,31,30,31,31,30,31,30,31};
 
-    if(schaltjahr == 1)
+    if(leapyear == 1)
     {
-        tage_pro_monat[1] = 29;
+        days_a_month[1] = 29;
     }
     else
     {
         //Übergabewert der Funktion is_leapyyear
-        if(schaltjahr == -1)
+        if(leapyear == -1)
         {
-            printf("ungueltiges Jahr");
+            printf("incorrent year");
         }
     }
 
-    anzahl_von_tagen += tage_pro_monat[month-1];
+    amount_of_days += days_a_month[month-1];
 
-    return anzahl_von_tagen;
+    return amount_of_days;
 
 }
 
 //Funktion zur Berechnung ob das Datum existiert und im Rahmen ist
-int exists_date(int day, int month, int year)
+int exists_date(struct date x)
 {
 
-    if(year > 1581 && year < 2401)
+    if(x.year > 1581 && x.year < 2401)
     {
-        if(month >= 1 && month <= 12)
+        if(x.month >= 1 && x.month <= 12)
         {
-            if(day >= 1 && day <= get_days_for_month(month, year))
+            if(x.day >= 1 && x.day <= get_days_for_month(x.month, x.year))
             {
                 return 1;
             }

@@ -1,3 +1,11 @@
 # depslib dependency file v1.0
-1613382175 source:c:\users\goldmann\timelib\bibiothek.c
+1614854799 source:c:\users\goldmann\timelib\bibiothek.c
+	"bibiothek.h"
+
+1614846573 source:c:\users\goldmann\timelib\main.c
+	<stdio.h>
+	<stdlib.h>
+	"bibiothek.h"
+
+1614846383 c:\users\goldmann\timelib\bibiothek.h
 

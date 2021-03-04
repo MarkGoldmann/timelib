@@ -1,6 +1,6 @@
 //Autor: Mark Goldmann
 //Erstelldatum: 11.01.21
-//Text: Tag des Jahres
+//Text: Day of the Year
 
 
 #include <stdio.h>
@@ -10,25 +10,25 @@
 
 int main()
 {
-    //Deklaration der Variablen
-    int day = 0;
-    int month = 0;
-    int year = 0;
+    struct date values;
 
-    printf("*** Tag des Jahres ***\n");
+
+    printf("*** Day of the year ***\n");
 
     //Aufruf der Funktion aus der Bibiothek.c
-    input_date(&day,&month,&year);
+    //und speichern in eine Variable
+    values = input_date();
 
     //Kontrolle ob das Datum existiert
-    if(exists_date(day, month, year) == 0)
+    if(exists_date(values) == 0)
     {
-        printf("Datum ist ungueltig.\n");
+        printf("Date is invalid.\n");
     }
     else
     {
-        int tag_des_jahres = day_of_the_year(day, month, year);
-        printf("Heute ist der %i Tag des Jahres.", tag_des_jahres);
+        //Übergabewert der Funktion day_of_the_year
+        int day_of_year = day_of_the_year(values);
+        printf("Today is the %i day of the year.", day_of_year);
     }
 
     return 0;
